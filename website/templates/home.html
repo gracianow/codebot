@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if code %}
+
+<pre>
+<code class="line-numbers language-{{lang}}">
+  {{ code }}
+</code>
+</pre>
+<br/><br/>
+
+<form method="POST" action="{% url 'home' %}" enctype="multipart/form-data">
+	{% csrf_token %}
+
+<div class="mb-3">
+  <label for="exampleFormControlTextarea1" class="form-label">Code</label>
+  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Have A. I. Fix My Code" name="code">{{ code }}</textarea>
+</div>
+<br/>
+<select class="form-select" aria-label="Default select example" name="lang">
+  <option selected>Select Programming Languages</option>
+  {% for lang in lang_list %}
+
+  <option value="{{ lang }}">{{ lang|title }}</option>
+
+  {% endfor %}
+</select>
+<br/>
+	  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% else %}
+
+<pre>
+<code class="line-numbers language-python">
+  if name = 'Mayra':
+    print('Hello Mayra!')
+  else:  
+    print('Hello friend!')
+</code>
+</pre>
+<br/><br/>
+
+<form method="POST" action="{% url 'home' %}">
+  {% csrf_token %}
+
+<div class="mb-3">
+  <label for="exampleFormControlTextarea1" class="form-label">Code</label>
+  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Have A. I. Fix My Code" name="code"></textarea>
+</div>
+<br/>
+<select class="form-select" aria-label="Default select example" name="lang">
+  <option selected>Select Programming Languages</option>
+  {% for lang in lang_list %}
+
+  <option value="{{ lang }}">{{ lang|title }}</option>
+
+  {% endfor %}
+</select>
+<br/>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% endif %}
+
+{% endblock %}
+
